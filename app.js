@@ -3,8 +3,7 @@ var express = require('express'),
 	HorrorBooks = require('./HorrorBooksWS'), //will look for index.js in that dir
 	app = express();
 
-app.listen(process.env.PORT || 8080);
-console.log("listening to port 8080");
+
 
 //define first route, will call our first get function in HorrorBooksWS.
 app.get('/AllHorrorBooks' , 
@@ -16,8 +15,7 @@ app.get('/AllHorrorBooks' ,
 	},
 	//call exported function from HorrorBooksWS
 	function (req, res) {
-	res.json(HorrorBooks.getHorrorBooks());
-	res.status(200);
+	res.status(200).json(HorrorBooks.getHorrorBooks());
 });
 
 //defined parameters callback, display a msg to console for confirmation.
@@ -27,9 +25,15 @@ app.param('bookID', function ( req, res, next, value){
 });
 
 //second route, recives parameter using defined parameters. call second function from HorrorBooksWS.
-app.get('/BookByID/:bookID', function (req, res) {
-	res.json(HorrorBooks.getBookByID(req.params.bookID));
-	res.status(200);
+app.get('/BookByID/:bookID', 
+
+	function (req, res, next){
+		res.set('header-Two', 'Book-By-ID');
+		next(); 
+	},
+
+	function (req, res) {
+	res.status(200).json(HorrorBooks.getBookByID(req.params.bookID));
 });
 
 //defined parameters callback, display a msg to console for confirmation.
@@ -39,10 +43,21 @@ app.param('author', function ( req, res, next, value){
 });
 
 //thired route, recives parameter using defined parameters. call thired function from HorrorBooksWS.
-app.get('/BookByAuthor/:author', function (req, res) {
-	res.json(HorrorBooks.getBookByAuthor(req.params.author));
-	res.status(200);
+app.get('/BookByAuthor/:author', 
+
+	function (req, res, next){
+		res.set('header-Three', 'Books-By-Author');
+		next(); 
+	},
+
+	function (req, res) {
+	res.status(200).json(HorrorBooks.getBookByAuthor(req.params.author));
 });
 
+//error route
+app.get('/error', function (req, res) {
+	res.status(500).json({status:false, message: "Internal Server Error"});
+})
 
-
+app.listen(process.env.PORT || 8080);
+console.log("listening to port 8080");
