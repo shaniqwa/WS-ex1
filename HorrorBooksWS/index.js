@@ -1,3 +1,4 @@
+//JSON object with array of all books. 
 var text = '{ "HorrorBooks" : [' +
 '{ "Name":"The Shining" , "Author":"Stephen King" , "id": "1"},' +
 '{ "Name":"It" , "Author":"Stephen King" , "id": "2" },' +
@@ -6,13 +7,15 @@ var text = '{ "HorrorBooks" : [' +
 '{ "Name":"American Psycho" , "Author":"Bret Easton Ellis" , "id": "5" },' +
 '{ "Name":"The Silence of the Lambs" , "Author":"Thomas Harris" , "id": "6" } ]}';
 
-var obj = JSON.parse(text);
+var obj = JSON.parse(text); //now its officially an object.
 
+//1. get with no parameters, returning all horror books. 
 exports.getHorrorBooks = function () {
 	console.log("HorrorBooksWS: get horror books");
 	return obj;
 };
 
+//2. get with parameter, returning a book by its id.
 exports.getBookByID = function (id) {
 	console.log("HorrorBooksWS: get book by ID")
 	for (i in obj.HorrorBooks){
@@ -22,6 +25,7 @@ exports.getBookByID = function (id) {
 	}
 };
 
+//3. more complex get with parameter, returning all books by the same author. 
 exports.getBookByAuthor = function (author) {
 	console.log("HorrorBooksWS: get book by author")
 	var result = [];
