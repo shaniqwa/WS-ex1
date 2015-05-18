@@ -3,7 +3,7 @@ var express = require('express'),
 	HorrorBooks = require('./HorrorBooksWS'),
 	app = express();
 
-app.listen(8080);
+app.listen(process.env.PORT || 8080)
 console.log("listening to port 8080");
 
 app.get('/AllHorrorBooks' , 
