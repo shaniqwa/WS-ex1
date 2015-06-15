@@ -10,6 +10,8 @@ app.get('/AllHorrorBooks' ,
 
 	//send header to client for debugging
 	function (req, res, next){
+		res.header("Access-Control-Allow-Origin", "*");
+		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 		res.set('header-One', 'All-Horror-Books');
 		next(); //call next callbak
 	},
@@ -20,6 +22,8 @@ app.get('/AllHorrorBooks' ,
 
 //defined parameters callback, display a msg to console for confirmation.
 app.param('bookID', function ( req, res, next, value){
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	console.log("\nRequest recived with bookID: " + value);
 	next();
 });
@@ -28,6 +32,8 @@ app.param('bookID', function ( req, res, next, value){
 app.get('/BookByID/:bookID', 
 
 	function (req, res, next){
+		res.header("Access-Control-Allow-Origin", "*");
+		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 		res.set('header-Two', 'Book-By-ID');
 		next(); 
 	},
@@ -46,6 +52,8 @@ app.param('author', function ( req, res, next, value){
 app.get('/BookByAuthor/:author', 
 
 	function (req, res, next){
+		res.header("Access-Control-Allow-Origin", "*");
+		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 		res.set('header-Three', 'Books-By-Author');
 		next(); 
 	},
@@ -56,6 +64,8 @@ app.get('/BookByAuthor/:author',
 
 //error route
 app.get('/error', function (req, res) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	res.status(500).json({status:false, message: "Internal Server Error"});
 })
 
